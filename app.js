@@ -12,4 +12,15 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.post("/create", async (req, res) => {
+  console.log(req.body);
+  const { name, email, image } = req.body;
+  await userModel.create({
+    name: name,
+    email: email,
+    image: image,
+  });
+  res.redirect("/");
+});
+
 app.listen(3000);
