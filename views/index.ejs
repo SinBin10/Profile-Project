@@ -6,7 +6,34 @@
     <link href="/stylesheets/output.css" rel="stylesheet" />
     <title>Document</title>
   </head>
-  <body class="bg-zinc-700">
-    <h1 class="text-red-500">hello World</h1>
+  <body>
+    <div class="h-full w-full bg-zinc-700 p-4">
+      <h1 class="text-white mb-4">Create User</h1>
+      <form action="/create" method="POST">
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 text-xs rounded bg-zinc-500"
+          type="text"
+          name="name"
+          placeholder="Enter your name..."
+        />
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 text-xs rounded bg-zinc-500"
+          type="text"
+          name="email"
+          placeholder="Enter your email..."
+        />
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 text-xs rounded bg-zinc-500"
+          type="text"
+          name="image"
+          placeholder="Image link.."
+        />
+        <input
+          class="block text-white text-xs px-2 py-1 mt-4 bg-blue-500 rounded-xl"
+          type="submit"
+          value="Create User"
+        />
+      </form>
+    </div>
   </body>
 </html>
