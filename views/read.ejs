@@ -18,7 +18,7 @@
         <h2 class="mt-2 text-2xl text-gray-300"><%= user.name %></h2>
         <h3 class="text-xl text-zinc-300"><%= user.email %></h3>
         <div class="flex mt-4 justify-between">
-          <a href="/edit" class="text-blue-300">Edit User</a>
+          <a href="/edit/<%= user._id %>" class="text-blue-300">Edit User</a>
           <a href="/delete/<%= user._id %>" class="text-red-500">Delete user</a>
         </div>
       </div>

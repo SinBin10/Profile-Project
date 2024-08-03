@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/stylesheets/output.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="h-full w-full bg-zinc-700 p-4">
+      <form action="/update/<%= user._id %>" method="POST">
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 rounded bg-zinc-500"
+          type="text"
+          name="name"
+          value="<%= user.name %>"
+        />
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 rounded bg-zinc-500"
+          type="text"
+          name="email"
+          value="<%= user.email %>"
+        />
+        <input
+          class="text-white p-1 outline-none focus:outline-blue-500 rounded bg-zinc-500"
+          type="text"
+          name="image"
+          value="<%= user.image %>"
+        />
+        <input
+          class="block text-white px-2 py-1 mt-4 bg-yellow-500 rounded-xl"
+          type="submit"
+          value="Update User"
+        />
+      </form>
+    </div>
+  </body>
+</html>

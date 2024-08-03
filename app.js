@@ -32,4 +32,21 @@ app.get("/delete/:id", async (req, res) => {
   res.redirect("/read");
 });
 
+app.get("/edit/:id", async (req, res) => {
+  let user = await userModel.findOne({ _id: req.params.id });
+  res.render("update", { user });
+});
+
+app.post("/update/:id", async (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  const { name, email, image } = req.body;
+  await userModel.findOneAndUpdate(
+    { _id: req.params.id },
+    { name, email, image },
+    { new: true }
+  );
+  res.redirect("/read");
+});
+
 app.listen(3000);
