@@ -13,7 +13,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/create", async (req, res) => {
-  console.log(req.body);
   const { name, email, image } = req.body;
   await userModel.create({
     name: name,
@@ -21,6 +20,11 @@ app.post("/create", async (req, res) => {
     image: image,
   });
   res.redirect("/");
+});
+
+app.get("/read", async (req, res) => {
+  let allUsers = await userModel.find();
+  res.render("read", { allUsers });
 });
 
 app.listen(3000);
