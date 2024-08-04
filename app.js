@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const userModel = require("./models/user");
 const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 app.set("view engine", "ejs");
 app.use(cookieParser());
@@ -13,24 +14,23 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   // a cookie helps to identify a user without providing username and password everytime they perform an operation.
-  //a cookie is a random string which is sent by the server to the client and it travels with client as he changes routes.
-  res.cookie("Name: ", "Binay");
-  //using bcrypt to generate salt and hash a password this encrypted password is stored in the database
+  //a cookie is a random string which is sent by the server to the client and it travels with client as he changes routes.  //using bcrypt to generate salt and hash a password this encrypted password is stored in the database
   //when the user tries to login again the .compare function is used to check if the hashed password of the user matched the one stored within the database
   //this .compare returns a true or false
-  bcrypt.genSalt(10, function (err, salt) {
-    console.log(salt);
-    bcrypt.hash("hubble", salt, function (err, hash) {
-      console.log(hash);
-    });
-  });
-  bcrypt.compare(
-    "hubbe",
-    "$2b$10$ueIlGu22M84pTYh7B4TJqOP.PvydKdlUdCerKLIpcBDxSiOyg5PsC",
-    function (err, result) {
-      console.log(result);
-    }
-  );
+  //sha(secure hash algorithm) is 256 bit hashing algorithm which is very secure
+  // bcrypt.genSalt(10, function (err, salt) {
+  //   bcrypt.hash("hubble", salt, function (err, hash) {});
+  // });
+  // bcrypt.compare(
+  //   "hubbe",
+  //   "$2b$10$ueIlGu22M84pTYh7B4TJqOP.PvydKdlUdCerKLIpcBDxSiOyg5PsC",
+  //   function (err, result) {
+  //     console.log(result);
+  //   }
+  // );
+  //JsonWebToken --> used to encrypt user data(generally email) and send that as the cookie to the server which server decrypts and identifies the user.
+  const token = jwt.sign({ email: "hubble@gmail.com" }, "secret");
+  res.cookie("token", token);
   res.render("index");
 });
 
@@ -45,7 +45,9 @@ app.post("/create", async (req, res) => {
 });
 
 app.get("/read", async (req, res) => {
-  console.log(req.cookies);
+  console.log(req.cookies.token);
+  let data = jwt.verify(req.cookies.token, "secret");
+  console.log(data);
   let allUsers = await userModel.find();
   res.render("read", { allUsers });
 });
